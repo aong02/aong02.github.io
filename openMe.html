@@ -34,23 +34,6 @@
 		 * Word: Cower
 		 */
 
-		// var circle = svg.append("circle")
-		// 	.attr("id", "hi")
-		// 	.attr("cx", dimension/2)
-		// 	.attr("cy", dimension/2)
-		// 	.attr("r", 30)
-		// 	.attr("fill", "#ffff00");
-
-		// d3.select("circle").on("mouseenter", function() {
-		// 	circle
-		// 		.transition()
-		// 		.attr("cx", (10 + parseInt(d3.select("#hi").attr("cx"))))
-		// 		.attr("cy", (10 + parseInt(d3.select("#hi").attr("cy"))))
-		// 		.attr("r", (parseInt(d3.select("#hi").attr("r")) - 1));
-		// });
-
-		// console.log(d3.select("#hi").attr("r"));
-
 		var circles = svg.selectAll("circle")
             .data(dataset)
             .enter()
@@ -58,26 +41,17 @@
 
         circles
         	.attr("cx", function(d, i) {
-            	return (i%11 * 25) + 125;
-            	// return 225;
+            	// return (i%11 * 25) + 125;
+            	return 225;
         	})
        		.attr("cy", function(d, i) {
-       			return Math.floor(i/11) * 25 + 125;
-       			// return 225;
+       			// return Math.floor(i/11) * 25 + 125;
+       			return 225;
        		})
        		.attr("r", function(d) {
             	return d;
        		})
   			.attr("fill", "#228b22");
-
-        // circles
-        // 	.attr("cx", function(d, i) {
-        //     	return (i * 100) + 25;
-        // 	})
-       	// 	.attr("cy", 200)
-       	// 	.attr("r", function(d) {
-        //     	return d * 2;
-       	// 	});
 
 		d3.selectAll("circle").on("mouseover", function() {
 			d3.select(this).each(cower);
@@ -86,7 +60,7 @@
 		var cower = function() {
 			d3.select(this)
 				.transition()
-				.duration(2000)
+				.duration(500)
 				.style("opacity", 0.5)
 				.attr("cx", (300 * direct() + parseInt(d3.select(this).attr("cx"))))
 				.attr("cy", (300 * direct() + parseInt(d3.select(this).attr("cy"))))
