@@ -51,7 +51,15 @@
        		})
   			.attr("fill", "#228b22");
 
-		d3.selectAll("circle").on("mouseover", function() {
+		d3.selectAll("circle").on("mouseleave", function() {
+			d3.select(this).each(cower);
+		});
+
+		d3.selectAll("circle").on("mousedown", function() {
+			d3.select(this).each(capture);
+		});
+
+		d3.selectAll("circle").on("mouseup", function() {
 			d3.select(this).each(cower);
 		});
 
@@ -60,10 +68,18 @@
 				.transition()
 				.duration(1000)
 				.style("opacity", 0.5)
-				.attr("cx", (300 * direct() + parseInt(d3.select(this).attr("cx"))))
-				.attr("cy", (300 * direct() + parseInt(d3.select(this).attr("cy"))))
+				.attr("cx", (400 * direct() + parseInt(d3.select(this).attr("cx"))))
+				.attr("cy", (400 * direct() + parseInt(d3.select(this).attr("cy"))))
 				.attr("r", (parseInt(d3.select(this).attr("r")) - 4))
 				.attr("fill", "#ffff00");
+		}
+
+		var capture = function() {
+			d3.select(this).on("mousemove", function () {
+					d3.select(this)
+						.attr("cx", d3.mouse(this)[0])
+						.attr("cy", d3.mouse(this)[1]);
+				});
 		}
 
 		function direct() {
