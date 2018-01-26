@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script lang="javascript" src="js/jquery-3.1.0.min.js"></script>
+	<script lang="javascript" src="js/d3.min.js"></script>
+	<style>
+		html, body {
+			padding: 0;
+			margin: 0;
+		}
+	</style>
+</head>
+<body>
+	
+	<script>
+		var dimension = 500;
+		var dataset = new Array(121);
+		populate(dataset, 20);
+
+		function populate(array, num) {
+			for (var i = array.length - 1; i >= 0; i--) {
+				array[i] = num;
+			}
+		};
+
+		var svg = d3.select('body').append('svg')
+			.attr('width', dimension)
+			.attr('height', dimension)
+			.style('background-color', 'gray');
+
+		// YOUR CODE SHOULD START HERE
+		/*
+		 * Name: Anthony Ong
+		 * Word: Cower
+		 */
+
+		// var circle = svg.append("circle")
+		// 	.attr("id", "hi")
+		// 	.attr("cx", dimension/2)
+		// 	.attr("cy", dimension/2)
+		// 	.attr("r", 30)
+		// 	.attr("fill", "#ffff00");
+
+		// d3.select("circle").on("mouseenter", function() {
+		// 	circle
+		// 		.transition()
+		// 		.attr("cx", (10 + parseInt(d3.select("#hi").attr("cx"))))
+		// 		.attr("cy", (10 + parseInt(d3.select("#hi").attr("cy"))))
+		// 		.attr("r", (parseInt(d3.select("#hi").attr("r")) - 1));
+		// });
+
+		// console.log(d3.select("#hi").attr("r"));
+
+		var circles = svg.selectAll("circle")
+            .data(dataset)
+            .enter()
+            .append("circle");
+
+        circles
+        	.attr("cx", function(d, i) {
+            	return (i%11 * 25) + 125;
+            	// return 225;
+        	})
+       		.attr("cy", function(d, i) {
+       			return Math.floor(i/11) * 25 + 125;
+       			// return 225;
+       		})
+       		.attr("r", function(d) {
+            	return d;
+       		})
+  			.attr("fill", "#228b22");
+
+        // circles
+        // 	.attr("cx", function(d, i) {
+        //     	return (i * 100) + 25;
+        // 	})
+       	// 	.attr("cy", 200)
+       	// 	.attr("r", function(d) {
+        //     	return d * 2;
+       	// 	});
+
+		d3.selectAll("circle").on("mouseover", function() {
+			d3.select(this).each(cower);
+		});
+
+		var cower = function() {
+			d3.select(this)
+				.transition()
+				.duration(2000)
+				.style("opacity", 0.5)
+				.attr("cx", (300 * direct() + parseInt(d3.select(this).attr("cx"))))
+				.attr("cy", (300 * direct() + parseInt(d3.select(this).attr("cy"))))
+				.attr("r", (parseInt(d3.select(this).attr("r")) - 4))
+				.attr("fill", "#ffff00");
+		}
+
+		function direct() {
+    		var n = Math.floor(Math.random() * 3 - 1);
+    		return n;
+		}
+This 
+
+		// YOUR CODE SHOULD END HERE
+	</script>
+</body>
+</html>
